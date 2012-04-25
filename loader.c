@@ -575,7 +575,7 @@ int setup_curl_handle_init (client_context*const cctx, url_context* url)
   
   bctx->url_index = url->url_ind;
 
-  curl_easy_setopt (handle, CURLOPT_DNS_CACHE_TIMEOUT, -1);
+  curl_easy_setopt (handle, CURLOPT_DNS_CACHE_TIMEOUT, 60);
 
   /* Set the connection timeout */
   curl_easy_setopt (handle, 
