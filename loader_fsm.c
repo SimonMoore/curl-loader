@@ -530,8 +530,17 @@ int add_loading_clients (batch_context* bctx)
     }
   else 
     {
+      // Allow connection scaling rate to be specified per minute, rather than per second.
+      static long scaled_inc = 0;
+      scaled_inc += bctx->clients_rampup_inc;
+      long divided_inc = scaled_inc / 60;
+      if(divided_inc)
+      {
+	scaled_inc -= divided_inc * 60;
+      }
+
       clients_to_sched = bctx->clients_rampup_inc ?
-        min (bctx->clients_rampup_inc, bctx->client_num_max - 
+        min (divided_inc, bctx->client_num_max -
              bctx->clients_current_sched_num) : bctx->client_num_max;
     }
 
