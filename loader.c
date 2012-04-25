@@ -588,6 +588,7 @@ int setup_curl_handle_init (client_context*const cctx, url_context* url)
   if (url->fresh_connect)
     {
       curl_easy_setopt (handle, CURLOPT_FORBID_REUSE, 1);
+      curl_easy_setopt (handle, CURLOPT_SSL_SESSIONID_CACHE, 0);
     }
 
   /* 
